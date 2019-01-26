@@ -5,6 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Components/BoxComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "Components/SceneComponent.h"
+#include "GameFramework/FloatingPawnMovement.h"
 #include "PawnHero.generated.h"
 
 UCLASS()
@@ -16,7 +19,19 @@ public:
 	// Sets default values for this pawn's properties
 	APawnHero();
 
+	UPROPERTY(EditAnywhere)
 	UBoxComponent* BoxCollision{ nullptr };
+
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* StaticMesh{ nullptr };
+
+	USceneComponent* SceneRoot{ nullptr };
+
+	UPROPERTY(EditAnywhere)
+	UFloatingPawnMovement* MovementComponent;
+
+	void Move(float AxisValue);
+
 
 protected:
 	// Called when the game starts or when spawned

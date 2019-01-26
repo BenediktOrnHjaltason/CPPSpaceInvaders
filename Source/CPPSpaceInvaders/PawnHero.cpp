@@ -8,11 +8,18 @@ APawnHero::APawnHero()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	AutoPossessPlayer = EAutoReceiveInput::Player0;
+
+	SceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("SceneRoot"));
+	RootComponent = SceneRoot;
+
 	BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
+	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	MovementComponent = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("MovementComponent"));
 
-	RootComponent = BoxCollision;
+	StaticMesh->SetupAttachment(SceneRoot);
 
-
+	
 
 }
 
@@ -35,5 +42,11 @@ void APawnHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	InputComponent->BindAxis("MoveSideways", this, &APawnHero::Move);
+	
 }
 
+void APawnHero::Move(float AxisValue)
+{
+	AddMovementInput(GetActorRightVector(), AxisValue);
+}
