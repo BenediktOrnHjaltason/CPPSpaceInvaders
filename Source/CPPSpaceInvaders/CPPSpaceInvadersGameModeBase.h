@@ -4,9 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-//#include "PawnEnemy.h"
+#include "Engine/World.h"
+#include "PawnEnemy.h"
 #include "CPPSpaceInvadersGameModeBase.generated.h"
 
+
+class APawnEnemy;
 /**
  * 
  */
@@ -15,6 +18,10 @@ class CPPSPACEINVADERS_API ACPPSpaceInvadersGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 
+public:
+		TSubclassOf<APawnEnemy> EnemyPawn;
 
-		TSubclassOf<class UPawnEnemy> EnemyPawn;
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 };
