@@ -16,9 +16,14 @@ AHeroBullet::AHeroBullet()
 
 	RootComponent = StaticMesh;
 
+	
 	ProjectileMovement->ProjectileGravityScale = 0;
-	ProjectileMovement->Velocity = { 500.f,0.f,0.f };
+	ProjectileMovement->UpdateComponentVelocity();
 
+	ProjectileMovement->InitialSpeed = BulletInitialSpeed;
+	ProjectileMovement->MaxSpeed = BulletMaxSpeed;
+
+	
 }
 
 // Called when the game starts or when spawned
@@ -32,6 +37,5 @@ void AHeroBullet::BeginPlay()
 void AHeroBullet::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 

@@ -31,6 +31,12 @@ public:
 	UPROPERTY(EditAnywhere)
 		USphereComponent* SphereCollision = nullptr;
 
+	UPROPERTY(EditAnywhere, Category = "C++ set speed")
+		float BulletInitialSpeed = 900.f;
+
+	UPROPERTY(EditAnywhere, Category = "C++ set speed")
+		float BulletMaxSpeed = 900.f;
+
 
 
 
