@@ -10,6 +10,8 @@
 #include "GameFramework/FloatingPawnMovement.h"
 #include "PawnHero.generated.h"
 
+class AHeroBullet;
+
 UCLASS()
 class CPPSPACEINVADERS_API APawnHero : public APawn
 {
@@ -29,6 +31,16 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	UFloatingPawnMovement* MovementComponent;
+
+	UPROPERTY(EditAnywhere)
+		USceneComponent* BulletSpawnLocation {nullptr};
+
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AHeroBullet> BulletToSpawn;
+
+
+private:
+	void Shoot();
 
 	void Move(float AxisValue);
 

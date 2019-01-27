@@ -12,17 +12,12 @@ AHeroBullet::AHeroBullet()
 	SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("SceneRoot"));
 	SphereCollision = CreateDefaultSubobject<USphereComponent>(TEXT("SphereCollision"));
 
-	RootComponent = SceneComponent;
-
-	SphereCollision->SetupAttachment(SceneComponent);
-	FVector SphereCenter{ 0.f, 0.f, 0.f };
-	
-
-	//StaticMesh->SetStaticMesh();
 
 
+	RootComponent = StaticMesh;
 
-
+	ProjectileMovement->ProjectileGravityScale = 0;
+	ProjectileMovement->Velocity = { 500.f,0.f,0.f };
 
 }
 
