@@ -11,8 +11,8 @@ void ACPPSpaceInvadersGameModeBase::BeginPlay()
 		
 		float HorizontalIncrement(100.f);
 		float VerticalIncrement(-70.f);
-		float HorizontalStart(-350.f);
-		FVector SpawnLocation(90.f, -360.f, 40.f);
+		float HorizontalStart(-600.f);
+		FVector SpawnLocation(90.f, -600.f, 40.f);
 
 		for (int i=0; i<5; ++i)
 		{
