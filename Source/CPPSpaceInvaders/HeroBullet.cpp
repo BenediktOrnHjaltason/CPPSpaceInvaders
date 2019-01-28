@@ -19,8 +19,6 @@ AHeroBullet::AHeroBullet()
 	SphereCollision->SetupAttachment(StaticMesh);
 
 	
-
-	
 	ProjectileMovement->ProjectileGravityScale = 0;
 	ProjectileMovement->UpdateComponentVelocity();
 
@@ -28,12 +26,18 @@ AHeroBullet::AHeroBullet()
 	ProjectileMovement->MaxSpeed = BulletMaxSpeed;
 
 	
+        //FTimerHandle MemberTimerHandle;
+        //GetWorldTimerManager().SetTimer(MemberTimerHandle, this, &AHeroBullet::DestroyBullet, 3.0f, false);
+
 }
 
 // Called when the game starts or when spawned
 void AHeroBullet::BeginPlay()
 {
 	Super::BeginPlay();
+
+		FTimerHandle MemberTimerHandle;
+        GetWorldTimerManager().SetTimer(MemberTimerHandle, this, &AHeroBullet::DestroyBullet, 3.0f, false);
 	
 }
 
@@ -41,5 +45,10 @@ void AHeroBullet::BeginPlay()
 void AHeroBullet::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+void AHeroBullet::DestroyBullet()
+{
+	this->Destroy();
 }
 

@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/StaticMeshComponent.h"
-//#include "Components/SceneComponent.h"
+#include "TimerManager.h"
 #include "Components/SphereComponent.h"
 #include "HeroBullet.generated.h"
 
@@ -31,13 +31,13 @@ public:
 	UPROPERTY(EditAnywhere)
 		USphereComponent* SphereCollision = nullptr;
 
-	UPROPERTY(EditAnywhere, Category = "C++ set speed")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "C++ set speed")
 		float BulletInitialSpeed = 900.f;
 
-	UPROPERTY(EditAnywhere, Category = "C++ set speed")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "C++ set speed")
 		float BulletMaxSpeed = 900.f;
 
-
+	
 
 
 protected:
@@ -47,6 +47,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	void DestroyBullet();
 
 	
 
