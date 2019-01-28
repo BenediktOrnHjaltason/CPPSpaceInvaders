@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/StaticMeshComponent.h"
-#include "Components/SceneComponent.h"
+//#include "Components/SceneComponent.h"
 #include "Components/SphereComponent.h"
 #include "HeroBullet.generated.h"
 
@@ -25,8 +25,8 @@ public:
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* StaticMesh = nullptr;
 
-	UPROPERTY(EditAnywhere)
-		USceneComponent* SceneComponent = nullptr;
+	//UPROPERTY(EditAnywhere)
+		//USceneComponent* SceneComponent = nullptr;
 
 	UPROPERTY(EditAnywhere)
 		USphereComponent* SphereCollision = nullptr;
@@ -47,5 +47,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	
 
 };

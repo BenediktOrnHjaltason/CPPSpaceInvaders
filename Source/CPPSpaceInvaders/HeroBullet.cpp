@@ -9,12 +9,16 @@ AHeroBullet::AHeroBullet()
 	PrimaryActorTick.bCanEverTick = true;
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
-	SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("SceneRoot"));
+	//SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("SceneRoot"));
 	SphereCollision = CreateDefaultSubobject<USphereComponent>(TEXT("SphereCollision"));
 
 
 
 	RootComponent = StaticMesh;
+	
+	SphereCollision->SetupAttachment(StaticMesh);
+
+	
 
 	
 	ProjectileMovement->ProjectileGravityScale = 0;

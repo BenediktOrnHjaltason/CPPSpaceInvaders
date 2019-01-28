@@ -9,23 +9,24 @@ void ACPPSpaceInvadersGameModeBase::BeginPlay()
 	if (World)
 	{	
 		
-		float HorizontalIncrement=100.f;
-		float VerticalIncrement(70.f);
-		FVector StartLocation(90.f, -360.f, 40.f);
+		float HorizontalIncrement(100.f);
+		float VerticalIncrement(-70.f);
+		float HorizontalStart(-350.f);
 		FVector SpawnLocation(90.f, -360.f, 40.f);
 
 		for (int i=0; i<5; ++i)
 		{
-			for (int j = 0; j < 5; ++j)
+			SpawnLocation.X += VerticalIncrement;
+			for (int j = 0; j < 11; ++j)
 			{
-				SpawnLocation.Y += VerticalIncrement * j;
+				SpawnLocation.Y += HorizontalIncrement;
 
 				UE_LOG(LogTemp, Warning, TEXT("Inside spawning loops"))
 
 				World->SpawnActor<APawnEnemy>(EnemyPawn, SpawnLocation, FRotator(0.f, 0.f, 0.f));
 			}
-		SpawnLocation.Y = StartLocation.Y;
-		SpawnLocation.X += VerticalIncrement *(i+1);
+			SpawnLocation.Y = HorizontalStart;
+		
 
 		}
 	}
