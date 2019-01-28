@@ -20,7 +20,7 @@ void ACPPSpaceInvadersGameModeBase::BeginPlay()
 			{
 				SpawnLocation.Y += VerticalIncrement * j;
 
-				
+				UE_LOG(LogTemp, Warning, TEXT("Inside spawning loops"))
 
 				World->SpawnActor<APawnEnemy>(EnemyPawn, SpawnLocation, FRotator(0.f, 0.f, 0.f));
 			}

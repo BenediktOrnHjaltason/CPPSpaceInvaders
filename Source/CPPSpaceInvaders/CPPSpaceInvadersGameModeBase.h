@@ -19,6 +19,7 @@ class CPPSPACEINVADERS_API ACPPSpaceInvadersGameModeBase : public AGameModeBase
 	GENERATED_BODY()
 
 public:
+		UPROPERTY(EditAnywhere)
 		TSubclassOf<APawnEnemy> EnemyPawn;
 
 protected:
