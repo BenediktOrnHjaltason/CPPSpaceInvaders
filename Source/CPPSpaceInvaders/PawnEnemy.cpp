@@ -18,12 +18,23 @@ APawnEnemy::APawnEnemy()
 	RootComponent = SceneRoot;
 	Mesh->SetupAttachment(SceneRoot);
 	BoxCollision->SetupAttachment(SceneRoot);
+
+	//Starter på 4 ift at gruppen spawner på midten.
+	MoveIncrementer = 4;
+
+	MovementDirection.Y = 100.f;
+
+	SetActorEnableCollision(true);
+
+	
 }
 
 // Called when the game starts or when spawned
 void APawnEnemy::BeginPlay()
 {
 	Super::BeginPlay();
+
+	GetWorldTimerManager().SetTimer(MoveTimer, this, &APawnEnemy::MoveAround, 2.f, true);
 	
 }
 
@@ -34,3 +45,38 @@ void APawnEnemy::Tick(float DeltaTime)
 
 }
 
+void APawnEnemy::MoveAround()
+{	
+
+	switch (MoveIncrementer)
+	{
+	case 1:
+	case 2:
+	case 3:
+	case 4:
+	case 5:
+	case 6:
+	
+
+		SetActorLocation(GetActorLocation() + MovementDirection);
+		++MoveIncrementer;
+		UE_LOG(LogTemp, Warning, TEXT("MoveDirection er %s"), *MovementDirection.ToString())
+		break;
+	
+	case 7:
+	
+		SetActorLocation(GetActorLocation() + FVector(-70.f, 0.f, 0.f));
+		
+		UE_LOG(LogTemp, Warning, TEXT("MoveDirection er %s"), *MovementDirection.ToString())
+		MovementDirection.Y *= -1;
+		MoveIncrementer = 1;
+		break;
+	}
+}
+
+void APawnEnemy::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor *OtherActor,
+	UPrimitiveComponent *OtherComponent, int32 OtherBodyIndex,
+	bool bFromSweep, const FHitResult &SweepResult)
+{
+	this->Destroy();
+}

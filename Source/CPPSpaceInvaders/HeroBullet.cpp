@@ -25,6 +25,9 @@ AHeroBullet::AHeroBullet()
 	ProjectileMovement->InitialSpeed = BulletInitialSpeed;
 	ProjectileMovement->MaxSpeed = BulletMaxSpeed;
 
+	SphereCollision->SetGenerateOverlapEvents(true);
+
+
 	
         //FTimerHandle MemberTimerHandle;
         //GetWorldTimerManager().SetTimer(MemberTimerHandle, this, &AHeroBullet::DestroyBullet, 3.0f, false);
@@ -38,7 +41,7 @@ void AHeroBullet::BeginPlay()
 
 		FTimerHandle MemberTimerHandle;
         GetWorldTimerManager().SetTimer(MemberTimerHandle, this, &AHeroBullet::DestroyBullet, 3.0f, false);
-	
+		
 }
 
 // Called every frame
