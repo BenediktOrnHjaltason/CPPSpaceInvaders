@@ -4,10 +4,11 @@
 
 ACPPSpaceInvadersGameModeBase::ACPPSpaceInvadersGameModeBase()
 {
-	Ammo = 60;
+	StartAmmo = 60;
+	CurrentAmmo = StartAmmo;
 
 	//Inkrementeres i spawnfunksjonen under
-	EnemyCount = 0;
+	CurrentEnemyCount = 0;
 }
 
 void ACPPSpaceInvadersGameModeBase::BeginPlay()
@@ -32,30 +33,29 @@ void ACPPSpaceInvadersGameModeBase::BeginPlay()
 				
 
 				World->SpawnActor<APawnEnemy>(EnemyPawn, SpawnLocation, FRotator(0.f, 0.f, 0.f));
-				EnemyCount++;
+				CurrentEnemyCount++;
 			}
 			SpawnLocation.Y = HorizontalStart;
 		
 
 		}
 
-		UE_LOG(LogTemp, Warning, TEXT("EnemyCount is %d"), Ammo)
+		UE_LOG(LogTemp, Warning, TEXT("EnemyCount is %d"), CurrentEnemyCount)
+			StartEnemyCount = CurrentEnemyCount;
 	}
 
 }
 
 void ACPPSpaceInvadersGameModeBase::DecrementEnemies()
 {
-	--EnemyCount;
-	UE_LOG(LogTemp, Warning, TEXT("EnemyCount is now %d"), EnemyCount)
+	--CurrentEnemyCount;
+	UE_LOG(LogTemp, Warning, TEXT("EnemyCount is now %d"), CurrentEnemyCount)
 }
 
 void ACPPSpaceInvadersGameModeBase::DecrementAmmo()
 {
-	--Ammo;
+	--CurrentAmmo;
 }
 
-int8 ACPPSpaceInvadersGameModeBase::GetAmmo()
-{
-	return Ammo;
-}
+
+

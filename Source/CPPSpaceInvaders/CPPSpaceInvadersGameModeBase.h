@@ -25,17 +25,24 @@ public:
 		UPROPERTY(EditAnywhere)
 		TSubclassOf<APawnEnemy> EnemyPawn;
 
+		UPROPERTY(BlueprintReadOnly)
+			int CurrentAmmo;
+
+		UPROPERTY(BlueprintReadOnly)
+			int StartAmmo;
+
+		UPROPERTY(BlueprintReadOnly)
+			int CurrentEnemyCount;
+
+		UPROPERTY(BlueprintReadOnly)
+			int StartEnemyCount;
+
+
 		void DecrementEnemies();
 
 		void DecrementAmmo();
 
-		int8 GetAmmo();
-
-private:
-
-	int8 Ammo;
-
-	int8 EnemyCount;
+		int GetAmmo() { return CurrentAmmo; }
 
 protected:
 	// Called when the game starts or when spawned

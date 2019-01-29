@@ -36,7 +36,7 @@ public:
 	UPROPERTY(EditAnywhere)
 		USceneComponent* BulletSpawnLocation {nullptr};
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category="Spawning")
 		TSubclassOf<AHeroBullet> BulletToSpawn;
 
 	ACPPSpaceInvadersGameModeBase* GameModeRef;

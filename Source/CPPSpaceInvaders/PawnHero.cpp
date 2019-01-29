@@ -66,6 +66,7 @@ void APawnHero::Shoot()
 			World->SpawnActor<AHeroBullet>(BulletToSpawn, SpawnLocation, FRotator(0.f,0.f,0.f));
 
 			GameModeRef->DecrementAmmo();
+			
 		}
 	}
 }
