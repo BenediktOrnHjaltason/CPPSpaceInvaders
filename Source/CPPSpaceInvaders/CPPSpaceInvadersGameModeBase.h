@@ -10,6 +10,7 @@
 
 
 class APawnEnemy;
+
 /**
  * 
  */
@@ -43,6 +44,8 @@ public:
 		void DecrementAmmo();
 
 		int GetAmmo() { return CurrentAmmo; }
+
+
 
 protected:
 	// Called when the game starts or when spawned
