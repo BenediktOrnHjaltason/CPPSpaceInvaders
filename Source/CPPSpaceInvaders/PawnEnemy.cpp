@@ -17,9 +17,20 @@ APawnEnemy::APawnEnemy()
 
 	RootComponent = SceneRoot;
 	Mesh->SetupAttachment(SceneRoot);
+	
 	BoxCollision->SetupAttachment(SceneRoot);
 
+	BoxCollision->SetGenerateOverlapEvents(true);
+	Mesh->SetGenerateOverlapEvents(false);
+
+	
+
+	BoxCollision->BodyInstance.SetResponseToAllChannels(ECR_Overlap);
+	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &APawnEnemy::OnOverlapBegin);
+	
 	//Starter på 4 ift at gruppen spawner på midten.
+	
+	
 	MoveIncrementer = 4;
 
 	MovementDirection.Y = 100.f;
@@ -60,23 +71,24 @@ void APawnEnemy::MoveAround()
 
 		SetActorLocation(GetActorLocation() + MovementDirection);
 		++MoveIncrementer;
-		UE_LOG(LogTemp, Warning, TEXT("MoveDirection er %s"), *MovementDirection.ToString())
+	
 		break;
 	
 	case 7:
 	
 		SetActorLocation(GetActorLocation() + FVector(-70.f, 0.f, 0.f));
 		
-		UE_LOG(LogTemp, Warning, TEXT("MoveDirection er %s"), *MovementDirection.ToString())
+	
 		MovementDirection.Y *= -1;
 		MoveIncrementer = 1;
 		break;
 	}
 }
 
-void APawnEnemy::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor *OtherActor,
+void APawnEnemy::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor *OtherActor,
 	UPrimitiveComponent *OtherComponent, int32 OtherBodyIndex,
 	bool bFromSweep, const FHitResult &SweepResult)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Overlap kjorer"))
 	this->Destroy();
 }

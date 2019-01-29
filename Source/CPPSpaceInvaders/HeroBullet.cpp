@@ -9,28 +9,25 @@ AHeroBullet::AHeroBullet()
 	PrimaryActorTick.bCanEverTick = true;
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
-	//SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("SceneRoot"));
+
 	SphereCollision = CreateDefaultSubobject<USphereComponent>(TEXT("SphereCollision"));
-
-
 
 	RootComponent = StaticMesh;
 	
 	SphereCollision->SetupAttachment(StaticMesh);
 
 	
-	ProjectileMovement->ProjectileGravityScale = 0;
-	ProjectileMovement->UpdateComponentVelocity();
 
+	ProjectileMovement->ProjectileGravityScale = 0;
 	ProjectileMovement->InitialSpeed = BulletInitialSpeed;
 	ProjectileMovement->MaxSpeed = BulletMaxSpeed;
 
 	SphereCollision->SetGenerateOverlapEvents(true);
+	StaticMesh->SetGenerateOverlapEvents(false);
 
+	SphereCollision->BodyInstance.SetResponseToAllChannels(ECR_Overlap);
 
-	
-        //FTimerHandle MemberTimerHandle;
-        //GetWorldTimerManager().SetTimer(MemberTimerHandle, this, &AHeroBullet::DestroyBullet, 3.0f, false);
+	SetActorEnableCollision(true);
 
 }
 
@@ -54,4 +51,3 @@ void AHeroBullet::DestroyBullet()
 {
 	this->Destroy();
 }
-
