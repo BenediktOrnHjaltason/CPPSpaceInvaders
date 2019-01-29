@@ -4,6 +4,9 @@
 // Det er en Actor
 
 #include "PawnEnemy.h"
+#include "HeroBullet.h"
+
+class AHeroBullet;
 
 // Sets default values
 APawnEnemy::APawnEnemy()
@@ -19,31 +22,21 @@ APawnEnemy::APawnEnemy()
 	Mesh->SetupAttachment(SceneRoot);
 	
 	BoxCollision->SetupAttachment(SceneRoot);
-
-	BoxCollision->SetGenerateOverlapEvents(true);
-	Mesh->SetGenerateOverlapEvents(false);
-
+	
 	
 
-	BoxCollision->BodyInstance.SetResponseToAllChannels(ECR_Overlap);
-	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &APawnEnemy::OnOverlapBegin);
-	
 	//Starter på 4 ift at gruppen spawner på midten.
-	
-	
 	MoveIncrementer = 4;
 
 	MovementDirection.Y = 100.f;
-
-	SetActorEnableCollision(true);
-
-	
 }
 
 // Called when the game starts or when spawned
 void APawnEnemy::BeginPlay()
 {
 	Super::BeginPlay();
+
+	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &APawnEnemy::OnOverlapBegin);
 
 	GetWorldTimerManager().SetTimer(MoveTimer, this, &APawnEnemy::MoveAround, 2.f, true);
 	
@@ -89,6 +82,10 @@ void APawnEnemy::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor
 	UPrimitiveComponent *OtherComponent, int32 OtherBodyIndex,
 	bool bFromSweep, const FHitResult &SweepResult)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Overlap kjorer"))
-	this->Destroy();
+	if (OtherActor->IsA(AHeroBullet::StaticClass()))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Overlap kjorer"))
+		this->Destroy();
+		OtherActor->Destroy();
+	}
 }

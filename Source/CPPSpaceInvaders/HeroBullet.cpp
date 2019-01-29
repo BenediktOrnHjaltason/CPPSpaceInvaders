@@ -16,19 +16,9 @@ AHeroBullet::AHeroBullet()
 	
 	SphereCollision->SetupAttachment(StaticMesh);
 
-	
-
 	ProjectileMovement->ProjectileGravityScale = 0;
 	ProjectileMovement->InitialSpeed = BulletInitialSpeed;
 	ProjectileMovement->MaxSpeed = BulletMaxSpeed;
-
-	SphereCollision->SetGenerateOverlapEvents(true);
-	StaticMesh->SetGenerateOverlapEvents(false);
-
-	SphereCollision->BodyInstance.SetResponseToAllChannels(ECR_Overlap);
-
-	SetActorEnableCollision(true);
-
 }
 
 // Called when the game starts or when spawned
