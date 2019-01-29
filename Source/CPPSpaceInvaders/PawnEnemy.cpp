@@ -5,6 +5,7 @@
 
 #include "PawnEnemy.h"
 #include "HeroBullet.h"
+#include "CPPSpaceInvadersGameModeBase.h"
 
 class AHeroBullet;
 
@@ -17,6 +18,8 @@ APawnEnemy::APawnEnemy()
 	SceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 	BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Collision"));
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+
+	
 
 	RootComponent = SceneRoot;
 	Mesh->SetupAttachment(SceneRoot);
@@ -39,6 +42,13 @@ void APawnEnemy::BeginPlay()
 	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &APawnEnemy::OnOverlapBegin);
 
 	GetWorldTimerManager().SetTimer(MoveTimer, this, &APawnEnemy::MoveAround, 2.f, true);
+
+	GameModeRef = Cast<ACPPSpaceInvadersGameModeBase>(GetWorld()->GetAuthGameMode());
+
+	if (GameModeRef)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("GameMode reference OK!"))
+	}
 	
 }
 
@@ -87,5 +97,8 @@ void APawnEnemy::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor
 		UE_LOG(LogTemp, Warning, TEXT("Overlap kjorer"))
 		this->Destroy();
 		OtherActor->Destroy();
+		GameModeRef->DecrementEnemies();
+
+		
 	}
 }

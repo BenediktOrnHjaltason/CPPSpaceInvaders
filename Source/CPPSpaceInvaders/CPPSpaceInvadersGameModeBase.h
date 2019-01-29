@@ -19,8 +19,23 @@ class CPPSPACEINVADERS_API ACPPSpaceInvadersGameModeBase : public AGameModeBase
 	GENERATED_BODY()
 
 public:
+
+		ACPPSpaceInvadersGameModeBase();
+
 		UPROPERTY(EditAnywhere)
 		TSubclassOf<APawnEnemy> EnemyPawn;
+
+		void DecrementEnemies();
+
+		void DecrementAmmo();
+
+		int8 GetAmmo();
+
+private:
+
+	int8 Ammo;
+
+	int8 EnemyCount;
 
 protected:
 	// Called when the game starts or when spawned

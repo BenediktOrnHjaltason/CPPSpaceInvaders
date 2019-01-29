@@ -2,6 +2,14 @@
 
 #include "CPPSpaceInvadersGameModeBase.h"
 
+ACPPSpaceInvadersGameModeBase::ACPPSpaceInvadersGameModeBase()
+{
+	Ammo = 60;
+
+	//Inkrementeres i spawnfunksjonen under
+	EnemyCount = 0;
+}
+
 void ACPPSpaceInvadersGameModeBase::BeginPlay()
 {
 	UWorld* World = GetWorld();
@@ -21,14 +29,33 @@ void ACPPSpaceInvadersGameModeBase::BeginPlay()
 			{
 				SpawnLocation.Y += HorizontalIncrement;
 
-				UE_LOG(LogTemp, Warning, TEXT("Inside spawning loops"))
+				
 
 				World->SpawnActor<APawnEnemy>(EnemyPawn, SpawnLocation, FRotator(0.f, 0.f, 0.f));
+				EnemyCount++;
 			}
 			SpawnLocation.Y = HorizontalStart;
 		
 
 		}
+
+		UE_LOG(LogTemp, Warning, TEXT("EnemyCount is %d"), Ammo)
 	}
 
+}
+
+void ACPPSpaceInvadersGameModeBase::DecrementEnemies()
+{
+	--EnemyCount;
+	UE_LOG(LogTemp, Warning, TEXT("EnemyCount is now %d"), EnemyCount)
+}
+
+void ACPPSpaceInvadersGameModeBase::DecrementAmmo()
+{
+	--Ammo;
+}
+
+int8 ACPPSpaceInvadersGameModeBase::GetAmmo()
+{
+	return Ammo;
 }

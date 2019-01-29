@@ -13,6 +13,8 @@
 #include "TimerManager.h"
 #include "PawnEnemy.generated.h"
 
+class ACPPSpaceInvadersGameModeBase;
+
 UCLASS()
 class CPPSPACEINVADERS_API APawnEnemy : public AActor
 {
@@ -38,6 +40,8 @@ public:
 
 	//Starter med høyre/positiv x
 	FVector MovementDirection;
+
+	ACPPSpaceInvadersGameModeBase *GameModeRef;
 	   
 protected:
 	// Called when the game starts or when spawned

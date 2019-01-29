@@ -11,6 +11,7 @@
 #include "PawnHero.generated.h"
 
 class AHeroBullet;
+class ACPPSpaceInvadersGameModeBase;
 
 UCLASS()
 class CPPSPACEINVADERS_API APawnHero : public APawn
@@ -37,6 +38,8 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AHeroBullet> BulletToSpawn;
+
+	ACPPSpaceInvadersGameModeBase* GameModeRef;
 
 
 private:

@@ -3,6 +3,7 @@
 #include "PawnHero.h"
 #include "HeroBullet.h"
 #include "Engine/World.h"
+#include "CPPSpaceInvadersGameModeBase.h"
 
 // Sets default values
 APawnHero::APawnHero()
@@ -30,6 +31,7 @@ void APawnHero::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	GameModeRef = Cast<ACPPSpaceInvadersGameModeBase>(GetWorld()->GetAuthGameMode());
 }
 
 // Called every frame
@@ -51,7 +53,7 @@ void APawnHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void APawnHero::Shoot()
 {
-	if (BulletSpawnLocation)
+	if (BulletSpawnLocation && GameModeRef->GetAmmo() > 0)
 	{
 		UWorld* World = GetWorld();
 		if (World)
@@ -63,6 +65,7 @@ void APawnHero::Shoot()
 
 			World->SpawnActor<AHeroBullet>(BulletToSpawn, SpawnLocation, FRotator(0.f,0.f,0.f));
 
+			GameModeRef->DecrementAmmo();
 		}
 	}
 }
