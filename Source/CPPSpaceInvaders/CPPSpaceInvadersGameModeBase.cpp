@@ -13,6 +13,8 @@ ACPPSpaceInvadersGameModeBase::ACPPSpaceInvadersGameModeBase()
 
 void ACPPSpaceInvadersGameModeBase::BeginPlay()
 {
+	Super::BeginPlay();
+
 	UWorld* World = GetWorld();
 
 	if (World)
