@@ -45,6 +45,8 @@ public:
 	FVector MovementDirection;
 
 	ACPPSpaceInvadersGameModeBase *GameModeRef;
+
+	FTimerHandle WinConditionTimer;
 	   
 protected:
 	// Called when the game starts or when spawned
@@ -56,10 +58,10 @@ public:
 
 	void MoveAround();
 
+	void CheckWinCondition();
+
 	UFUNCTION()
 		void OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor *OtherActor,
 			UPrimitiveComponent *OtherComponent, int32 OtherBodyIndex,
 			bool bFromSweep, const FHitResult &SweepResult);
-	
-
 };

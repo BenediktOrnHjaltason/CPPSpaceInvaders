@@ -8,6 +8,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/SceneComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
+#include "TimerManager.h"
 #include "PawnHero.generated.h"
 
 class AHeroBullet;
@@ -36,18 +37,20 @@ public:
 	UPROPERTY(EditAnywhere)
 		USceneComponent* BulletSpawnLocation {nullptr};
 
-
 	UPROPERTY(EditAnywhere, Category="Spawning")
 		TSubclassOf<AHeroBullet> BulletToSpawn;
 
 	ACPPSpaceInvadersGameModeBase* GameModeRef;
 
+	//For å gi siste kula tid til å treffe mål før test
+	FTimerHandle WinConditionTimer;
 
 private:
 	void Shoot();
 
 	void Move(float AxisValue);
 
+	void CheckWinCondition();
 
 protected:
 	// Called when the game starts or when spawned
@@ -59,5 +62,4 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 };

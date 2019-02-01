@@ -21,15 +21,11 @@ APawnEnemy::APawnEnemy()
 	BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Collision"));
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 
-	
-
 	RootComponent = SceneRoot;
 	Mesh->SetupAttachment(SceneRoot);
 	
 	BoxCollision->SetupAttachment(SceneRoot);
 	
-	
-
 	//Starter på 4 ift at gruppen spawner på midten.
 	MoveIncrementer = 4;
 
@@ -50,8 +46,7 @@ void APawnEnemy::BeginPlay()
 	if (GameModeRef)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("GameMode reference OK!"))
-	}
-	
+	}	
 }
 
 // Called every frame
@@ -63,7 +58,6 @@ void APawnEnemy::Tick(float DeltaTime)
 
 void APawnEnemy::MoveAround()
 {	
-
 	switch (MoveIncrementer)
 	{
 	case 1:
@@ -72,22 +66,22 @@ void APawnEnemy::MoveAround()
 	case 4:
 	case 5:
 	case 6:
-	
-
 		SetActorLocation(GetActorLocation() + MovementDirection);
 		++MoveIncrementer;
 	
 		break;
 	
 	case 7:
-	
 		SetActorLocation(GetActorLocation() + FVector(-70.f, 0.f, 0.f));
-		
-	
 		MovementDirection.Y *= -1;
 		MoveIncrementer = 1;
 		break;
 	}
+}
+
+void APawnEnemy::CheckWinCondition()
+{
+	GameModeRef->CheckWinConditions();
 }
 
 void APawnEnemy::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor *OtherActor,
@@ -102,10 +96,9 @@ void APawnEnemy::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor
 		OtherActor->Destroy();
 
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), Explosion, GetTransform());
-		
 
 		GameModeRef->DecrementEnemies();
 
-		
+		GetWorldTimerManager().SetTimer(WinConditionTimer, this, &APawnEnemy::CheckWinCondition, 2.f, false);
 	}
 }

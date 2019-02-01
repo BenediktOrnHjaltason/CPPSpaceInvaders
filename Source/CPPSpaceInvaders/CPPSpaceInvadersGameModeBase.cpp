@@ -1,6 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "CPPSpaceInvadersGameModeBase.h"
+#include "Kismet/GameplayStatics.h"
+
+
+
 
 ACPPSpaceInvadersGameModeBase::ACPPSpaceInvadersGameModeBase()
 {
@@ -9,11 +13,15 @@ ACPPSpaceInvadersGameModeBase::ACPPSpaceInvadersGameModeBase()
 
 	//Inkrementeres i spawnfunksjonen under
 	CurrentEnemyCount = 0;
+
+	ScreenText = CreateDefaultSubobject<UTextRenderComponent>(TEXT("ScreenText"));
 }
 
 void ACPPSpaceInvadersGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
+
+
 
 	UWorld* World = GetWorld();
 
@@ -48,10 +56,12 @@ void ACPPSpaceInvadersGameModeBase::BeginPlay()
 
 }
 
+
 void ACPPSpaceInvadersGameModeBase::DecrementEnemies()
 {
 	--CurrentEnemyCount;
 	UE_LOG(LogTemp, Warning, TEXT("EnemyCount is now %d"), CurrentEnemyCount)
+
 }
 
 void ACPPSpaceInvadersGameModeBase::DecrementAmmo()
@@ -59,5 +69,21 @@ void ACPPSpaceInvadersGameModeBase::DecrementAmmo()
 	--CurrentAmmo;
 }
 
+void ACPPSpaceInvadersGameModeBase::CheckWinConditions()
+{
+	if (CurrentEnemyCount < 1)
+	{
+		UGameplayStatics::SetGamePaused(GetWorld(), true);
+
+		TextHUDWin();
+	}
+
+	if (CurrentAmmo == 0 && CurrentEnemyCount > 0)
+	{
+		UGameplayStatics::SetGamePaused(GetWorld(), true);
+
+		TextHUDLoose();
+	}
+}
 
 

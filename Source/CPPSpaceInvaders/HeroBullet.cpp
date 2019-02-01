@@ -29,7 +29,6 @@ void AHeroBullet::BeginPlay()
 
 		FTimerHandle MemberTimerHandle;
         GetWorldTimerManager().SetTimer(MemberTimerHandle, this, &AHeroBullet::DestroyBullet, 3.0f, false);
-		
 }
 
 // Called every frame

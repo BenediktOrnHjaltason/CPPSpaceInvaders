@@ -23,7 +23,6 @@ APawnHero::APawnHero()
 
 	StaticMesh->SetupAttachment(SceneRoot);
 	BulletSpawnLocation->SetupAttachment(StaticMesh);
-
 }
 
 // Called when the game starts or when spawned
@@ -38,7 +37,6 @@ void APawnHero::BeginPlay()
 void APawnHero::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 // Called to bind functionality to input
@@ -47,8 +45,7 @@ void APawnHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	InputComponent->BindAxis("MoveSideways", this, &APawnHero::Move);
-	InputComponent->BindAction("Shoot", IE_Pressed, this, &APawnHero::Shoot);
-	
+	InputComponent->BindAction("Shoot", IE_Pressed, this, &APawnHero::Shoot);	
 }
 
 void APawnHero::Shoot()
@@ -64,9 +61,10 @@ void APawnHero::Shoot()
 			UE_LOG(LogTemp, Warning, TEXT("SpawnLocation gotten: %s"), *SpawnLocation.ToString())
 
 			World->SpawnActor<AHeroBullet>(BulletToSpawn, SpawnLocation, FRotator(0.f,0.f,0.f));
-
-			GameModeRef->DecrementAmmo();
 			
+			//Gi kula tid til å treffe før sjekk
+			GetWorldTimerManager().SetTimer(WinConditionTimer, this, &APawnHero::CheckWinCondition, 2.f, false);
+			GameModeRef->DecrementAmmo();
 		}
 	}
 }
@@ -74,4 +72,9 @@ void APawnHero::Shoot()
 void APawnHero::Move(float AxisValue)
 {
 	AddMovementInput(GetActorRightVector(), AxisValue);
+}
+
+void APawnHero::CheckWinCondition()
+{
+	GameModeRef->CheckWinConditions();
 }

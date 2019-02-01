@@ -37,9 +37,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "C++ set speed")
 		float BulletMaxSpeed = 900.f;
 
-	
-
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -49,8 +46,4 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void DestroyBullet();
-
-
-	
-
 };

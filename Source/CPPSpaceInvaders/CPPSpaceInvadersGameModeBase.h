@@ -6,7 +6,10 @@
 #include "GameFramework/GameModeBase.h"
 #include "Engine/World.h"
 #include "PawnEnemy.h"
+#include "Components/TextRenderComponent.h"
+#include "TimerManager.h"
 #include "CPPSpaceInvadersGameModeBase.generated.h"
+
 
 
 class APawnEnemy;
@@ -38,10 +41,28 @@ public:
 		UPROPERTY(BlueprintReadOnly)
 			int StartEnemyCount;
 
+		UTextRenderComponent* ScreenText = nullptr;
+
+
+		//For at testen som går etter hvert skudd skal gi kula tid til å treffe fienden
+		FTimerHandle WinConditionTimer;
+
+
+		UFUNCTION(BlueprintImplementableEvent)
+		void TextHUDLoose();
+
+		UFUNCTION(BlueprintImplementableEvent)
+			void TextHUDWin();
+
 
 		void DecrementEnemies();
 
 		void DecrementAmmo();
+
+		void CheckWinConditions();
+
+		UFUNCTION(BlueprintImplementableEvent)
+		void BlueprintTimer();
 
 		int GetAmmo() { return CurrentAmmo; }
 
