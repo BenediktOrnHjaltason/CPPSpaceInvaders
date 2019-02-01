@@ -33,6 +33,9 @@ public:
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* Mesh;
 
+	UPROPERTY(EditAnywhere)
+		UParticleSystem* Explosion = nullptr;
+
 	FTimerHandle MoveTimer;
 
 	//Til Move-funksjonen

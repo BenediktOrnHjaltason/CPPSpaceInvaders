@@ -5,7 +5,9 @@
 
 #include "PawnEnemy.h"
 #include "HeroBullet.h"
+#include "Kismet/GameplayStatics.h"
 #include "CPPSpaceInvadersGameModeBase.h"
+#include "Camera/CameraShake.h"
 
 class AHeroBullet;
 
@@ -95,8 +97,13 @@ void APawnEnemy::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor
 	if (OtherActor->IsA(AHeroBullet::StaticClass()))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Overlap kjorer"))
+			FVector Position = GetActorLocation();
 		this->Destroy();
 		OtherActor->Destroy();
+
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), Explosion, GetTransform());
+		
+
 		GameModeRef->DecrementEnemies();
 
 		

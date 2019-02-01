@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "HeroBullet.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AHeroBullet::AHeroBullet()

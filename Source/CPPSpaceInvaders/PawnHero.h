@@ -36,6 +36,7 @@ public:
 	UPROPERTY(EditAnywhere)
 		USceneComponent* BulletSpawnLocation {nullptr};
 
+
 	UPROPERTY(EditAnywhere, Category="Spawning")
 		TSubclassOf<AHeroBullet> BulletToSpawn;
 
